@@ -1,6 +1,5 @@
 package com.zpyin.netty.heartbeat;
 
-import com.zpyin.netty.helloworld.TestServerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
