@@ -1,5 +1,6 @@
-package com.zpyin.netty.helloworld;
+package com.zpyin.netty.protobuf;
 
+import com.zpyin.netty.chat.MyChatServerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.EventLoopGroup;
@@ -9,29 +10,27 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
 /**
- * Created by zpyin on 2017/5/29.
+ * Created by zpyin on 2017/6/4.
  */
 public class TestServer {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
 
-        ServerBootstrap serverBootstrap = new ServerBootstrap();
         try {
-            serverBootstrap.group(bossGroup, workerGroup)
+            ServerBootstrap bootstrap = new ServerBootstrap();
+            bootstrap.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new TestServerInitializer());
-            ChannelFuture channelFuture = serverBootstrap.bind(9999).sync();
+
+            ChannelFuture channelFuture = bootstrap.bind(7779).sync();
             channelFuture.channel().closeFuture().sync();
-        } catch (Exception e) {
-            e.printStackTrace();
         } finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
-
     }
 }
