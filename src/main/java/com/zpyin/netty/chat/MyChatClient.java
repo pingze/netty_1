@@ -23,7 +23,7 @@ public class MyChatClient {
 
             Channel channel = bootstrap.connect("localhost", 7899).sync().channel();
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-            for (;;) {
+            while (true) {
                 channel.writeAndFlush(br.readLine() + "\r\n");
             }
         } finally {
